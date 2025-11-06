@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="teal_200">#80CBC4</color>
+    <color name="blue_100">#E0ECFF</color>
+    <color name="blue_800">#1E3A8A</color>
+    <color name="green_600">#25D366</color> <!-- WhatsApp green -->
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="teal_700">#00796B</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="primary_blue">#2F5DFB</color>
+    <color name="primary_blue_light">#E7EDFF</color>
+    <color name="primary_blue_dark">#1E46C8</color>
+    <color name="blue">#2196F3</color>
+</resources>

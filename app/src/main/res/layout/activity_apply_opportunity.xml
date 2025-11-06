@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:padding="16dp"
+    tools:context=".ApplyOpportunityActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:background="@drawable/form_card_bg"
+        android:elevation="4dp"
+        android:padding="20dp"
+        android:clipToOutline="true">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/formTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply for Opportunity"
+            android:textColor="@color/blue_800"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:paddingBottom="12dp" />
+
+        <!-- Full Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Full name:"
+            android:textColor="@color/blue_800"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/fullName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Should be filled from account details"
+            android:enabled="false"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext_rounded_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Phone -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone number:"
+            android:textColor="@color/blue_800"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/phoneNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Should be filled from account details"
+            android:enabled="false"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext_rounded_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Email -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email address:"
+            android:textColor="@color/blue_800"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/emailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Should be filled from account details"
+            android:enabled="false"
+            android:textColor="@color/black"
+            android:background="@drawable/edittext_rounded_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Motivation -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Motivation:"
+            android:textColor="@color/blue_800"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/motivation"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="top|start"
+            android:hint="Why do you want to volunteer for this opportunity?"
+            android:inputType="textMultiLine"
+            android:background="@drawable/edittext_rounded_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Experience -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Past volunteering experience:"
+            android:textColor="@color/blue_800"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/experience"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="top|start"
+            android:hint="Share your relevant experience or activities"
+            android:inputType="textMultiLine"
+            android:background="@drawable/edittext_rounded_bg"
+            android:padding="12dp"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Apply Button -->
+        <Button
+            android:id="@+id/applyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:fontFamily="sans-serif-medium"
+            android:backgroundTint="@color/blue_800"
+            android:padding="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="8dp" />
+    </LinearLayout>
+</ScrollView>

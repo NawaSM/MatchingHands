@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "757391441955",
+    "project_id": "matchinghandsapp",
+    "storage_bucket": "matchinghandsapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757391441955:android:c63ef3b053b2979558f196",
+        "android_client_info": {
+          "package_name": "com.example.matchinghandapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhjik1SxZ7TFw6KuvwJ_Axl5pdv3Sx2Hs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

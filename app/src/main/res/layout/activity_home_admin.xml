@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8FAFF"
+    tools:context=".Home_admin">
+
+    <!-- Header Section (Same as Profile/My Applications) -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#D2E3FC"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/tvAppName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="Matching Hands"
+            android:textColor="#1E3A8A"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Admin Dashboard"
+            android:textColor="#1E3A8A"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <!-- Scrollable Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:gravity="center_horizontal">
+
+            <!-- Welcome Text -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Welcome, Admin!"
+                android:textColor="#1E3A8A"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Grid Dashboard -->
+            <GridLayout
+                android:id="@+id/adminGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:columnCount="2"
+                android:alignmentMode="alignMargins"
+                android:useDefaultMargins="true"
+                android:gravity="center">
+
+                <!-- User Management -->
+                <LinearLayout
+                    android:id="@+id/userManagementCard"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/tile_bg"
+                    android:padding="16dp"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        app:tint="#2563EB"
+                        android:src="@drawable/ic_baseline_group_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="User Management"
+                        android:textColor="#1E3A8A"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Manage users and volunteers"
+                        android:textColor="#64748B"
+                        android:textSize="13sp"
+                        android:gravity="center" />
+                </LinearLayout>
+
+                <!-- Profile -->
+                <LinearLayout
+                    android:id="@+id/profileCard"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/tile_bg"
+                    android:padding="16dp"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        app:tint="#2563EB"
+                        android:src="@drawable/ic_baseline_person_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Profile"
+                        android:textColor="#1E3A8A"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit your admin info"
+                        android:textColor="#64748B"
+                        android:textSize="13sp"
+                        android:gravity="center" />
+                </LinearLayout>
+                <!-- Messages -->
+                <LinearLayout
+                    android:id="@+id/messagesCard"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/tile_bg"
+                    android:padding="16dp"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        app:tint="#2563EB"
+                        android:src="@drawable/ic_baseline_message_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Messages"
+                        android:textColor="#1E3A8A"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chat with All Users"
+                        android:textColor="#64748B"
+                        android:textSize="13sp"
+                        android:gravity="center" />
+                </LinearLayout>
+                <!-- Logout -->
+                <LinearLayout
+                    android:id="@+id/logoutCard"
+                    android:layout_width="160dp"
+                    android:layout_height="160dp"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/tile_bg"
+                    android:padding="16dp"
+                    android:layout_margin="10dp"
+                    android:elevation="5dp">
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:layout_marginBottom="10dp"
+                        app:tint="#DC2626"
+                        android:src="@drawable/ic_baseline_logout_24" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Logout"
+                        android:textColor="#DC2626"
+                        android:textStyle="bold"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Sign out of admin account"
+                        android:textColor="#64748B"
+                        android:textSize="13sp"
+                        android:gravity="center" />
+                </LinearLayout>
+            </GridLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

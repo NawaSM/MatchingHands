@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    card_view:cardCornerRadius="16dp"
+    card_view:cardElevation="4dp"
+    android:backgroundTint="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/image"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_image_placeholder"
+            android:background="@drawable/edittext_blue_bg"
+            android:clipToOutline="true" />
+
+        <TextView
+            android:id="@+id/volunteerName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name: John Doe"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/volunteerEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email: john@email.com"
+            android:textSize="13sp"
+            android:textColor="@color/gray_700" />
+
+        <TextView
+            android:id="@+id/volunteerPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Phone: +123456789"
+            android:textSize="13sp"
+            android:textColor="@color/gray_700" />
+
+        <TextView
+            android:id="@+id/volunteerMotivation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Motivation: I love helping others"
+            android:textSize="13sp"
+            android:textColor="@color/gray_700"
+            android:layout_marginTop="4dp" />
+
+        <TextView
+            android:id="@+id/volunteerExperience"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Experience: 2 years community work"
+            android:textSize="13sp"
+            android:textColor="@color/gray_700" />
+
+        <TextView
+            android:id="@+id/opportunityTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opportunity: Tree Plantation"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:layout_marginTop="6dp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Opportunity Created on: 10 Nov 2025"
+            android:textColor="@color/gray_700"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pending"
+            android:textSize="12sp"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            android:layout_marginTop="6dp"
+            android:background="@drawable/badge_pending"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
+
+        <!-- Action Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp"
+            android:gravity="end">
+
+            <Button
+                android:id="@+id/btnApprove"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Approve"
+                android:textSize="12sp"
+                android:backgroundTint="#0F9D58"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="12dp" />
+
+            <Button
+                android:id="@+id/btnReject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reject"
+                android:textSize="12sp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#D93025"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="12dp" />
+
+            <Button
+                android:id="@+id/btnPending"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pending"
+                android:textSize="12sp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#F9AB00"
+                android:textColor="@android:color/white"
+                android:paddingHorizontal="12dp"
+                android:visibility="gone" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

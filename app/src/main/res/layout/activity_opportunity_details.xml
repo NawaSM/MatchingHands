@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginBottom="8dp">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,18 +48,29 @@
 
             <TextView
                 android:id="@+id/opOrganizer"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Organizer Name"
                 android:textColor="#111" />
+
+            <!-- Icons on the right -->
             <ImageView
                 android:id="@+id/messageButton"
                 android:src="@drawable/ic_whatsapp"
-                android:layout_width="24dp"
-                android:layout_marginStart="100dp"
-                android:layout_height="24dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:tint="@color/gray_700"
-                android:layout_marginEnd="6dp" />
+                android:layout_marginEnd="12dp"
+                android:padding="2dp" />
+
+            <ImageView
+                android:id="@+id/chatOrganizerButton"
+                android:src="@android:drawable/ic_dialog_email"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:tint="@color/gray_700"
+                android:padding="2dp" />
 
         </LinearLayout>
 
@@ -111,13 +123,31 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:src="@drawable/ic_baseline_access_time_24"
+                        android:src="@android:drawable/ic_lock_idle_alarm"
                         android:layout_marginEnd="6dp" />
                     <TextView
                         android:id="@+id/opDuration"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Duration"
+                        android:textColor="#333" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:src="@drawable/ic_baseline_access_time_24"
+                        android:layout_marginEnd="6dp" />
+                    <TextView
+                        android:id="@+id/opTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Time"
                         android:textColor="#333" />
                 </LinearLayout>
 

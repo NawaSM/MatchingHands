@@ -2,31 +2,33 @@ package com.example.matchinghandapp;
 
 import java.util.List;
 
+// Data model representing a single volunteering opportunity.
 public class OpportunityModel {
 
-    private String id;
+    // Fields for opportunity data.
+    private String id; // The unique ID of the opportunity document.
     private String title;
     private String description;
     private String date;
     private String duration;
     private String time;
-    private String address;
+    private String address; // Can be used for organizer name or address.
     private String imageUrl;
-    private String createdBy;
+    private String createdBy; // The user ID of the NGO that created the opportunity.
     private String location;
     private long timestamp;
-    private List<String> tags;
+    private List<String> tags; // A list of tags associated with the opportunity.
 
-    // 🔹 Store skills as a comma-separated string (e.g. "Teaching, Communication, Leadership")
+    // Field for storing required skills as a comma-separated string.
     private String skills;
 
-    // 🔹 Used to display Gemini-calculated match percentage
+    // Field to hold the match percentage calculated by the Gemini AI.
     private String matchPercentage = "Calculating...";
 
-    // Required empty constructor for Firestore
+    // Required empty constructor for Firestore data mapping.
     public OpportunityModel() {}
 
-    // ✅ Getters and Setters
+    // Getters and setters for all fields.
     public String getId() { return id; }
     public void setId(String id) { this.id = id; }
 
@@ -63,11 +65,9 @@ public class OpportunityModel {
     public List<String> getTags() { return tags; }
     public void setTags(List<String> tags) { this.tags = tags; }
 
-    // 🔹 Skills field
     public String getSkills() { return skills; }
     public void setSkills(String skills) { this.skills = skills; }
 
-    // 🔹 Match percentage for Gemini result
     public String getMatchPercentage() { return matchPercentage; }
     public void setMatchPercentage(String matchPercentage) { this.matchPercentage = matchPercentage; }
 }

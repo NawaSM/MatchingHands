@@ -19,18 +19,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.List;
 
+// Adapter for displaying a list of applications for an NGO to manage.
 public class ApplicationManagementAdapter extends RecyclerView.Adapter<ApplicationManagementAdapter.ViewHolder> {
 
     private final Context context;
-    private final List<ApplicationModel> list;
-    private final FirebaseFirestore firestore;
+    private final List<ApplicationModel> list; // The list of applications.
+    private final FirebaseFirestore firestore; // Firestore instance for database operations.
 
+    // Constructor to initialize the adapter.
     public ApplicationManagementAdapter(Context context, List<ApplicationModel> list) {
         this.context = context;
         this.list = list;
         this.firestore = FirebaseFirestore.getInstance();
     }
 
+    // Creates a new ViewHolder when the RecyclerView needs one.
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,23 +41,22 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
         return new ViewHolder(view);
     }
 
+    // Binds the application data to the views in a given ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ApplicationModel model = list.get(position);
 
-        // ✅ Display applicant + opportunity info
+        // Display applicant and opportunity information.
         holder.volunteerName.setText("Name: " + safe(model.getTitle()));
-        holder.volunteerEmail.setText("Email: " + safe(model.getLocation())); // reused location for email earlier
+        holder.volunteerEmail.setText("Email: " + safe(model.getLocation())); // Reusing location field for email.
         holder.volunteerPhone.setText("Phone: " + safe(model.getPhone()));
         holder.volunteerMotivation.setText("Motivation: " + safe(model.getMotivation()));
         holder.volunteerExperience.setText("Experience: " + safe(model.getExperience()));
-
         holder.opportunityTitle.setText("Opportunity: " + safe(model.getOpportunityTitle()));
         holder.date.setText("Opportunity created on: " + safe(model.getDate()));
-
         holder.status.setText(model.getStatus());
 
-        // ✅ Dynamic badge colors
+        // Set status badge color based on the application status.
         switch (model.getStatus().toLowerCase()) {
             case "approved":
                 holder.status.setBackgroundResource(R.drawable.badge_accepted);
@@ -64,27 +66,28 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
                 holder.status.setBackgroundResource(R.drawable.badge_rejected);
                 holder.status.setTextColor(Color.WHITE);
                 break;
-            default:
+            default: // For "Pending" status.
                 holder.status.setBackgroundResource(R.drawable.badge_pending);
                 holder.status.setTextColor(Color.WHITE);
                 break;
         }
 
-        // ✅ Show/hide buttons depending on status
+        // Show or hide action buttons based on the current status.
         updateButtonVisibility(holder, model.getStatus());
 
-        // ✅ Load opportunity image
+        // Load the opportunity image using Glide.
         Glide.with(context)
                 .load(model.getImageUrl())
                 .placeholder(R.drawable.ic_image_placeholder)
                 .into(holder.image);
 
-        // ✅ Handle button clicks
+        // Set click listeners for the action buttons.
         holder.btnApprove.setOnClickListener(v -> updateStatus(model, "Approved", holder));
         holder.btnReject.setOnClickListener(v -> updateStatus(model, "Rejected", holder));
         holder.btnPending.setOnClickListener(v -> updateStatus(model, "Pending", holder));
     }
 
+    // Updates the application status in Firestore after confirmation.
     private void updateStatus(ApplicationModel model, String newStatus, ViewHolder holder) {
         new AlertDialog.Builder(context)
                 .setTitle("Confirm Action")
@@ -95,6 +98,7 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
                         return;
                     }
 
+                    // Update the status in the Firestore document.
                     firestore.collection("Applications")
                             .document(model.getDocId())
                             .update("status", newStatus)
@@ -102,7 +106,7 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
                                 model.setStatus(newStatus);
                                 Toast.makeText(context, "Marked as " + newStatus, Toast.LENGTH_SHORT).show();
                                 updateButtonVisibility(holder, newStatus);
-                                notifyDataSetChanged();
+                                notifyDataSetChanged(); // Refresh the item.
                             })
                             .addOnFailureListener(e ->
                                     Toast.makeText(context, "Update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show());
@@ -111,6 +115,7 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
                 .show();
     }
 
+    // Controls which action buttons are visible based on the current status.
     private void updateButtonVisibility(ViewHolder holder, String status) {
         holder.btnApprove.setVisibility(View.GONE);
         holder.btnReject.setVisibility(View.GONE);
@@ -132,15 +137,18 @@ public class ApplicationManagementAdapter extends RecyclerView.Adapter<Applicati
         }
     }
 
+    // Helper method to safely return a string, avoiding null pointer exceptions.
     private String safe(String text) {
         return text != null ? text : "-";
     }
 
+    // Returns the total number of items in the list.
     @Override
     public int getItemCount() {
         return list.size();
     }
 
+    // ViewHolder class to hold the UI components for each application item.
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView volunteerName, volunteerEmail, volunteerPhone, volunteerMotivation, volunteerExperience;
         TextView opportunityTitle, date, status;

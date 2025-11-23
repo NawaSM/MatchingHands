@@ -16,46 +16,55 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.List;
 import java.util.Map;
 
+// Adapter for displaying a list of users in a RecyclerView for admin management.
 public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder> {
 
+    // Data lists for users and their corresponding IDs.
     private final List<Map<String, Object>> userList;
     private final List<String> userIds;
-    private final FirebaseFirestore firestore;
+    private final FirebaseFirestore firestore; // Firestore instance for database operations.
 
+    // Constructor to initialize the adapter with user data.
     public UserAdapter(List<Map<String, Object>> userList, List<String> userIds) {
         this.userList = userList;
         this.userIds = userIds;
         this.firestore = FirebaseFirestore.getInstance();
     }
 
+    // Creates a new ViewHolder when the RecyclerView needs one.
     @NonNull
     @Override
     public UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        // Inflate the layout for a single user item.
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item, parent, false);
         return new UserViewHolder(v);
     }
 
+    // Binds the data to the views in a given ViewHolder.
     @Override
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
-        Map<String, Object> user = userList.get(position);
-        String userId = userIds.get(position);
+        Map<String, Object> user = userList.get(position); // Get user data at this position.
+        String userId = userIds.get(position); // Get user ID at this position.
 
+        // Extract user details from the map.
         String email = (String) user.get("email");
         String phone = (String) user.get("phone");
         String role = (String) user.get("role");
         Boolean active = (Boolean) user.get("active");
 
+        // Set the user data to the UI components.
         holder.tvEmail.setText(email != null ? email : "No Email");
         holder.tvPhone.setText("Phone: " + (phone != null ? phone : "N/A"));
         holder.tvRole.setText("Role: " + (role != null ? role : "unknown"));
-        holder.spinnerRole.setSelection(getRoleIndex(role));
-        holder.switchActive.setChecked(active != null ? active : true);
+        holder.spinnerRole.setSelection(getRoleIndex(role)); // Set spinner to the user's current role.
+        holder.switchActive.setChecked(active != null ? active : true); // Set the active status switch.
 
-        // 🔹 Role change listener
+        // Listener to update user role when a new role is selected from the spinner.
         holder.spinnerRole.setOnItemSelectedListener(new android.widget.AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(android.widget.AdapterView<?> parent, View view, int pos, long id) {
                 String newRole = parent.getItemAtPosition(pos).toString();
+                // Update Firestore only if the role has actually changed.
                 if (role == null || !newRole.equals(role)) {
                     firestore.collection("Users").document(userId)
                             .update("role", newRole)
@@ -69,7 +78,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             }
         });
 
-        // 🔹 Active/Block toggle
+        // Listener for the active/blocked switch to update the user's status in Firestore.
         holder.switchActive.setOnCheckedChangeListener((buttonView, isChecked) -> {
             firestore.collection("Users").document(userId)
                     .update("active", isChecked)
@@ -81,6 +90,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         });
     }
 
+    // Helper method to get the index of a role string for setting the spinner selection.
     private int getRoleIndex(String role) {
         if (role == null) return 0;
         switch (role.toLowerCase()) {
@@ -95,11 +105,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         }
     }
 
+    // Returns the total number of items in the list.
     @Override
     public int getItemCount() {
         return userList.size();
     }
 
+    // ViewHolder class to hold the UI components for each user item.
     public static class UserViewHolder extends RecyclerView.ViewHolder {
         TextView tvEmail, tvPhone, tvRole;
         Spinner spinnerRole;

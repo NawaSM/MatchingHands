@@ -136,7 +136,7 @@
                 <ImageView
                     android:layout_width="18dp"
                     android:layout_height="18dp"
-                    android:src="@drawable/ic_baseline_access_time_24"
+                    android:src="@android:drawable/ic_lock_idle_alarm"
                     android:tint="#475569" />
 
                 <TextView

@@ -16,8 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.matchinghandapp.utils.GeminiMatchCalculator;
-import com.example.matchinghandapp.utils.UserProfileCache;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 import com.google.firebase.auth.FirebaseAuth;
@@ -65,10 +63,9 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         holder.opDuration.setText(model.getDuration());
         holder.opTime.setText(model.getTime() != null ? model.getTime() : "-");
 
-        // --- Default match percentage ---
+        // Set the match percentage from the model. No recalculation here.
         holder.opMatchPercent.setText(model.getMatchPercentage());
 
-        // --- Load image ---
         if (model.getImageUrl() != null && !model.getImageUrl().isEmpty()) {
             Glide.with(context)
                     .load(model.getImageUrl())
@@ -78,7 +75,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             holder.opImage.setImageResource(R.drawable.ic_image_placeholder);
         }
 
-        // --- Load tags ---
         holder.opTagGroup.removeAllViews();
         if (model.getTags() != null && !model.getTags().isEmpty()) {
             for (String tag : model.getTags()) {
@@ -91,10 +87,8 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             }
         }
 
-        // --- Always reset bookmark to default first ---
         holder.opBookmark.setImageResource(R.drawable.ic_bookmark_border);
 
-        // --- Apply cached state if available ---
         if (bookmarksLoaded && model.getId() != null) {
             boolean isBookmarked = bookmarkCache.getOrDefault(model.getId(), false);
             holder.opBookmark.setImageResource(
@@ -102,7 +96,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             );
         }
 
-        // --- Handle Bookmark Toggle ---
         holder.opBookmark.setOnClickListener(v -> {
             if (currentUid == null) {
                 Toast.makeText(context, "Please log in to bookmark", Toast.LENGTH_SHORT).show();
@@ -116,10 +109,8 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     .document(model.getId());
 
             if (currentlyBookmarked) {
-                // Remove bookmark
                 bookmarkRef.delete()
                         .addOnSuccessListener(aVoid -> {
-                            Log.d("DiscoverAdapter", "Bookmark deleted: " + model.getId());
                             bookmarkCache.put(model.getId(), false);
                             holder.opBookmark.setImageResource(R.drawable.ic_bookmark_border);
                             Toast.makeText(context, "Removed from bookmarks", Toast.LENGTH_SHORT).show();
@@ -127,7 +118,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                         .addOnFailureListener(e ->
                                 Log.e("DiscoverAdapter", "Failed to delete bookmark: " + e.getMessage()));
             } else {
-                // Add bookmark
                 Map<String, Object> data = new HashMap<>();
                 data.put("opportunityId", model.getId());
                 data.put("userId", currentUid);
@@ -138,7 +128,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
 
                 bookmarkRef.set(data)
                         .addOnSuccessListener(aVoid -> {
-                            Log.d("DiscoverAdapter", "Bookmark added: " + model.getId());
                             bookmarkCache.put(model.getId(), true);
                             holder.opBookmark.setImageResource(R.drawable.ic_bookmark_filled);
                             Toast.makeText(context, "Bookmarked successfully", Toast.LENGTH_SHORT).show();
@@ -148,21 +137,6 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
             }
         });
 
-        // --- Calculate Gemini match dynamically ---
-        String userProfile = UserProfileCache.getCurrentUserProfile(context);
-        String opportunityInfo = "Title: " + model.getTitle() +
-                "\nDescription: " + model.getDescription() +
-                "\nTags: " + model.getTags() +
-                "\nLocation: " + model.getLocation();;
-
-        GeminiMatchCalculator.calculateMatch(userProfile, opportunityInfo)
-                .thenAccept(match -> new Handler(Looper.getMainLooper()).post(() -> {
-                    String matchText = match + "% Match";
-                    model.setMatchPercentage(matchText);
-                    holder.opMatchPercent.setText(matchText);
-                }));
-
-        // --- On item click: open details ---
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, OpportunityDetailsActivity.class);
             intent.putExtra("opportunityId", model.getId());
@@ -175,11 +149,8 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
         return opportunityList.size();
     }
 
-    /** 🔹 Preload all bookmarks for the logged-in user */
     public void preloadBookmarks() {
         if (currentUid == null || bookmarksLoaded) return;
-
-        Log.d("DiscoverAdapter", "Loading bookmarks for: " + currentUid);
 
         firestore.collection("Bookmarks")
                 .document(currentUid)
@@ -189,17 +160,14 @@ public class DiscoverAdapter extends RecyclerView.Adapter<DiscoverAdapter.ViewHo
                     bookmarkCache.clear();
                     for (DocumentSnapshot snap : query.getDocuments()) {
                         bookmarkCache.put(snap.getId(), true);
-                        Log.d("DiscoverAdapter", "Loaded bookmark: " + snap.getId());
                     }
                     bookmarksLoaded = true;
                     new Handler(Looper.getMainLooper()).post(this::notifyDataSetChanged);
-                    Log.d("DiscoverAdapter", "All bookmarks loaded: " + bookmarkCache.size());
                 })
                 .addOnFailureListener(e ->
                         Log.e("DiscoverAdapter", "Failed to load bookmarks: " + e.getMessage()));
     }
 
-    // --- ViewHolder ---
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView opImage, opBookmark;
         TextView opTitle, opOrganization, opDate, opDuration, opTime, opMatchPercent;

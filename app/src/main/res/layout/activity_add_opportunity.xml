@@ -164,55 +164,20 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginTop="4dp" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/tagChipGroup"
+
+            <Button
+                android:id="@+id/selectTagsBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                app:singleSelection="false"
-                app:chipSpacing="6dp"
-                app:singleLine="false">
+                android:text="Select Tags"
+                android:layout_marginBottom="8dp"
+                style="?attr/materialButtonOutlinedStyle" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tagHealth"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:text="Health"
-                    android:checkable="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tagEducation"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:text="Education"
-                    android:checkable="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tagCommunity"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:text="Community Service"
-                    android:checkable="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tagEnvironment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:text="Environment"
-                    android:checkable="true" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/tagAwareness"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-                    android:text="Awareness"
-                    android:checkable="true" />
-            </com.google.android.material.chip.ChipGroup>
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/selectedTagsChipGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp" />
 
             <EditText
                 android:id="@+id/opDescription"

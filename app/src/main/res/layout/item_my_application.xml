@@ -58,11 +58,10 @@
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Accepted"
+                android:text="Status"
                 android:textSize="12sp"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="3dp"
-                android:background="@drawable/badge_accepted"
                 android:textColor="@android:color/white"
                 android:textStyle="bold" />
         </LinearLayout>

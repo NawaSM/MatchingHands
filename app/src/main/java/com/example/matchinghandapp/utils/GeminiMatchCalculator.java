@@ -11,20 +11,23 @@ import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.concurrent.CompletableFuture;
 
+// Uses the Gemini AI model to calculate a match score between a user and an opportunity.
 public class GeminiMatchCalculator {
 
-    private static final String TAG = "GeminiMatchCalculator";
-    private static final String MODEL_NAME = "gemini-2.5-flash";
-    private static final String API_KEY = "AIzaSyCjj6teu6P_xSnJPJT4m9ads-Hm12HWAWM"; // Replace with your Gemini API key
+    private static final String TAG = "GeminiMatchCalculator"; // Log tag for this class.
+    private static final String MODEL_NAME = "gemini-2.5-flash"; // The specific Gemini model to use.
+    private static final String API_KEY = "AIzaSyD0nT8ju0kKlj0Lk9P477yrRqknFtUhqEg";
 
+    // Calculates a match score between a user profile and an opportunity.
     public static CompletableFuture<Integer> calculateMatch(String userProfile, String opportunityInfo) {
+        // Run the network request on a background thread.
         return CompletableFuture.supplyAsync(() -> {
             try {
-                // ✅ Initialize Gemini model
+                // Initialize the Gemini model.
                 GenerativeModel model = new GenerativeModel(MODEL_NAME, API_KEY);
                 GenerativeModelFutures modelFutures = GenerativeModelFutures.from(model);
 
-                // ✅ Build your prompt
+                // Build the prompt for the AI model to get a numeric match score.
                 String prompt =
                         "Compare the following volunteer profile and opportunity. " +
                                 "Respond ONLY with a number between 0 and 100 (no text, just digits) " +
@@ -32,33 +35,42 @@ public class GeminiMatchCalculator {
                                 "Volunteer Profile:\n" + userProfile + "\n\n" +
                                 "Opportunity Details:\n" + opportunityInfo;
 
-                // ✅ Wrap the text in a Content object
+                // Wrap the prompt in a Content object.
                 Content content = new Content.Builder()
                         .addText(prompt)
                         .build();
 
-                // ✅ Generate response from Gemini
+                // Send the content to the model.
                 ListenableFuture<GenerateContentResponse> futureResponse =
                         modelFutures.generateContent(new Content[]{content});
 
-                // ✅ Block and get response safely inside async thread
+                // Block and wait for the response within the async task.
                 GenerateContentResponse response = futureResponse.get();
 
-                // ✅ Extract numeric value
-                String text = response.getText() != null ? response.getText().trim() : "50";
+                // Extract the text part and sanitize it to get only digits.
+                String text = response.getText() != null ? response.getText().trim() : "";
+                Log.d(TAG, "Raw Gemini response: " + text);
+
                 String digits = text.replaceAll("[^0-9]", "");
 
-                int match = 50; // default fallback
-                if (!digits.isEmpty()) match = Integer.parseInt(digits);
-                if (match > 100) match = 100;
-                if (match < 0) match = 0;
+                int match = 50; // Default fallback score.
+                if (!digits.isEmpty() && digits.length() <= 3) {  // Add length check
+                    match = Integer.parseInt(digits);
 
-                Log.d(TAG, "Gemini returned match: " + match + "%");
+                    // VALIDATION: Reject invalid matches
+                    if (match <= 0 || match > 100) {
+                        Log.w(TAG, "Invalid match value: " + match + " - using default 50");
+                        match = 50;
+                    }
+                }
+
+                Log.d(TAG, "Final parsed match: " + match + "%");
                 return match;
 
             } catch (Exception e) {
+                // Handle any exceptions during the API call.
                 Log.e(TAG, "Gemini calculation failed: " + e.getMessage());
-                return 50; // default on error
+                return 50; // Return a default score on error.
             }
         });
     }

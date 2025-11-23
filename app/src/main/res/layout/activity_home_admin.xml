@@ -144,40 +144,60 @@
                         android:gravity="center" />
                 </LinearLayout>
                 <!-- Messages -->
-                <LinearLayout
-                    android:id="@+id/messagesCard"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:background="@drawable/tile_bg"
-                    android:padding="16dp"
-                    android:layout_margin="10dp"
-                    android:elevation="5dp">
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_marginBottom="10dp"
-                        app:tint="#2563EB"
-                        android:src="@drawable/ic_baseline_message_24" />
+                    <LinearLayout
+                        android:id="@+id/messagesCard"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:orientation="vertical"
+                        android:gravity="center"
+                        android:background="@drawable/tile_bg"
+                        android:padding="16dp"
+                        android:layout_margin="10dp"
+                        android:elevation="5dp">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_marginBottom="10dp"
+                            app:tint="#2563EB"
+                            android:src="@drawable/ic_baseline_message_24" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Messages"
+                            android:textColor="#1E3A8A"
+                            android:textStyle="bold"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Chat with All Users"
+                            android:textColor="#64748B"
+                            android:textSize="13sp"
+                            android:gravity="center" />
+                    </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Messages"
-                        android:textColor="#1E3A8A"
+                        android:id="@+id/messagesBadge"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="top|end"
+                        android:layout_marginEnd="5dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/red_dot"
+                        android:gravity="center"
+                        android:textColor="@android:color/white"
+                        android:textSize="14sp"
                         android:textStyle="bold"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Chat with All Users"
-                        android:textColor="#64748B"
-                        android:textSize="13sp"
-                        android:gravity="center" />
-                </LinearLayout>
+                        android:visibility="gone"
+                        android:elevation="6dp"/>
+                </FrameLayout>
                 <!-- Logout -->
                 <LinearLayout
                     android:id="@+id/logoutCard"
